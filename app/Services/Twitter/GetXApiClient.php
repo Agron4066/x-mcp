@@ -7,6 +7,7 @@ use App\Services\Twitter\Types\TweetPage;
 use App\Services\Twitter\Types\UserInfo;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
+use App\Exceptions\TwitterApiException;
 
 class GetXApiClient implements TwitterClient
 {
@@ -142,9 +143,10 @@ class GetXApiClient implements TwitterClient
             ->get(self::BASE_URL . $endpoint, $params);
 
         if ($response->failed()) {
-            throw new RuntimeException(
-                "GetXAPI request failed: {$response->status()} - {$response->body()}",
-                $response->status()
+            throw new TwitterApiException(
+                "GetXAPI request failed: {$response->status()}",
+                $response->status(),
+                $response->body()
             );
         }
 
