@@ -6,6 +6,7 @@ use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Illuminate\JsonSchema\Types\Type;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
+use Laravel\Mcp\ResponseFactory;
 use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 use App\Services\Twitter\TwitterClient;
@@ -21,7 +22,7 @@ class FetchAccountTweetsTool extends Tool
     /**
      * Handle the tool request.
      */
-    public function handle(Request $request): Response
+    public function handle(Request $request): Response|ResponseFactory
     {
         $validated = $request->validate([
             'username' => ['required', 'string', 'min:1'],
@@ -72,7 +73,15 @@ class FetchAccountTweetsTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            //
+            'username' => $schema->string()
+                ->description('取得対象のXアカウント名（@なし）')
+                ->required(),
+            'count' => $schema->integer()
+                ->description('取得件数の上限（デフォルト20、最大200）')
+                ->default(20),
+            'include_replies' => $schema->boolean()
+                ->description('リプライも含めるか（デフォルトfalse）')
+                ->default(false),
         ];
     }
 }
