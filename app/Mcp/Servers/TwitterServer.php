@@ -13,7 +13,7 @@ use Laravel\Mcp\Server\Attributes\Version;
 class TwitterServer extends Server
 {
     protected array $tools = [
-        //
+        \App\Mcp\Tools\PingTool::class,
     ];
 
     protected array $resources = [
