@@ -2,4 +2,4 @@
 
 use Laravel\Mcp\Facades\Mcp;
 
-Mcp::web('/mcp/twitter', \App\Mcp\Servers\TwitterServer::class);
+Mcp::web('/mcp/twitter', \App\Mcp\Servers\TwitterServer::class)->middleware('auth:sanctum');
