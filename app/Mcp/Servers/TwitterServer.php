@@ -15,6 +15,7 @@ class TwitterServer extends Server
     protected array $tools = [
         \App\Mcp\Tools\PingTool::class,
         \App\Mcp\Tools\FetchAccountTweetsTool::class,
+        \App\Mcp\Tools\SearchTweetsTool::class,
     ];
 
     protected array $resources = [
