@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+
+    'getxapi' => [
+        'key' => env('GETXAPI_KEY'),
+    ],
+
+    'twitter' => [
+        'data_source' => env('TWITTER_DATA_SOURCE', 'getxapi'),
+    ],
 ];
